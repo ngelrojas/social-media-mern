@@ -11,11 +11,24 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 connectDb();
 
+// nextApp.prepare().then(() => {
+//     app.all("*", (req, res) => {
+//         server.listen(PORT, err => {
+//             if(err) throw err;
+//             console.log(`Express server running on port ${PORT}`);
+//         })
+//     })
+// });
+
 nextApp.prepare().then(() => {
-    app.all("*", (req, res) => {
-        server.listen(PORT, err => {
-            if(err) throw err;
-            console.log(`Express server running on port ${PORT}`);
-        })
-    })
+    const server = express();
+
+    server.all("*", (req, res) => {
+        return handle(req, res);
+    });
+
+    server.listen(PORT, (err) => {
+        if (err) throw err;
+        console.log(`Express server running on port ${PORT}`);
+    });
 });
