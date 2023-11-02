@@ -15,4 +15,4 @@ const UserSchema = new Schema({
     expireToken:{type: Date}
 }, {timestamps: true});
 
-module.exports = mongoose.models("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
